@@ -24,7 +24,7 @@
     {ts domain=de.systopia.anonymiser}Are you sure you want to anonymise this contact?{/ts}
   </p>
   <div class="ui-dialog-buttonset">
-    <button type="button" id="anonymise-contact-button" role="button"><span><i class="crm-i fa-user-secret"></i>&nbsp;{ts domain=de.systopia.anonymiser}YES{/ts}</span></button>
+    <button type="button" id="anonymise-contact-button" role="button"><span><i class="crm-i fa-user-secret" role="img" aria-hidden="true"></i>&nbsp;{ts domain=de.systopia.anonymiser}YES{/ts}</span></button>
   </div>
 </div>
 
