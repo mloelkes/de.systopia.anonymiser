@@ -427,7 +427,7 @@ class CRM_Anonymiser_Worker {
    * @param $clearedEntities
    *
    * @return void
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   protected function clearCustomData($clearedEntities) {
     $sqlStatements = [];
