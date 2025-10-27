@@ -40,7 +40,7 @@ class AnonymiseAction extends AbstractAction {
     $contact_id = $parameters->getParameter('contact_id');
     try {
       civicrm_api3('Contact', 'anonymise', ['contact_id' => $contact_id]);
-    } catch (\CiviCRM_API3_Exception $ex) {
+    } catch (\CRM_Core_Exception $ex) {
       // Do nothing.
     }
   }

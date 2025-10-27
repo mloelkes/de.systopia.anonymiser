@@ -518,7 +518,7 @@ class CRM_Anonymiser_Configuration {
    * @param $entity
    *
    * @return mixed
-   * @throws \CiviCRM_API3_Exception
+   * @throws \CRM_Core_Exception
    */
   public function getCustomTablesForEntity($entity) {
     if (!isset(\Civi::$statics[E::LONG_NAME]['custom_tables'][$entity]) && !is_array(\Civi::$statics[E::LONG_NAME]['custom_tables'][$entity])) {
