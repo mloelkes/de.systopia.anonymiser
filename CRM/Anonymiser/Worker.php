@@ -142,6 +142,12 @@ class CRM_Anonymiser_Worker {
         $this->deleteRelatedLogs($entity_name, $contact_id);
       }
     }
+
+    // Anonymise SEPA-mandates
+    $this->anonymiseSepaMandates($contact_id);
+
+    // Anonymise bank accounts
+    $this->anonymiseBankAccounts($contact_id);
   }
 
 
@@ -486,5 +492,64 @@ class CRM_Anonymiser_Worker {
      */
   private function isComponentEnabled($component) {
       return in_array($component, Civi::settings()->get('enable_components'), TRUE);
+  }
+
+
+  /**
+   * Anonymise SEPA-mandates (civilisten)
+   * @param $contactId
+   * @return void
+   */
+  protected static function anonymiseSepaMandates(int $contactId): void {
+	  if ($contactId <= 0) return;
+	
+    try {
+      $sepaMandates = \Civi\Api4\SepaMandate::get(TRUE)
+        ->addWhere('contact_id', '=', $contactId)
+        ->execute();
+
+      if (count($sepaMandates) === 0) {
+        return;
+      }
+
+      foreach ($sepaMandates as $sepaMandate) {
+        $mandateId = (int) $sepaMandate['id'];
+
+        \Civi\Api4\SepaMandate::delete(TRUE)
+          ->addWhere('id', '=', $mandateId)
+          ->execute();
+      }
+    } catch (\Throwable $e) {
+      \CRM_Core_Error::debug_log_message("[AnonymiserPlus] Failed to anonymise SEPA mandates for contact {$contactId}: {$e->getMessage()}");
+    }
+  }
+
+  /**
+   * Anonymise bank accounts (civilisten)
+   * @param $contactId
+   * @return void
+   */
+  protected static function anonymiseBankAccounts(int $contactId): void {
+	  if ($contactId <= 0) return;
+	
+    try {
+      $bankAccounts = \Civi\Api4\BankAccount::get(TRUE)
+        ->addWhere('contact_id', '=', $contactId)
+        ->execute();
+
+      if (count($bankAccounts) === 0) {
+        return;
+      }
+
+      foreach ($bankAccounts as $bankAccount) {
+        $bankAccountId = (int) $bankAccount['id'];
+
+        \Civi\Api4\BankAccount::delete(TRUE)
+          ->addWhere('id', '=', $bankAccountId)
+          ->execute();
+      }
+    } catch (\Throwable $e) {
+      \CRM_Core_Error::debug_log_message("[AnonymiserPlus] Failed to delete bank accounts for contact {$contactId}: {$e->getMessage()}");
+    }
   }
 }

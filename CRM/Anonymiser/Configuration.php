@@ -160,7 +160,7 @@ class CRM_Anonymiser_Configuration {
 
     } elseif ($entity_name == 'Contribution') {
       $fields = array(
-        "source"                 => 'null',
+        //"source"                 => 'null',
         "trxn_id"                => 'null',
         "invoice_id"             => 'null',
         "check_number"           => 'null',
