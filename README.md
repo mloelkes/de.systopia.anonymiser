@@ -1,5 +1,13 @@
 # Contact Anonymiser
 
+Fork of the CiviCRM Anonymiser Extension.
+Based on version 1.3.0.
+
+Custom modifications:
+* Anonymise bank accounts
+* Anonymise SEPA mandates
+* Preserve donation receipts
+
 This extension will allow you to anonymise a contact in your database without
 losing its statistical data.
 
