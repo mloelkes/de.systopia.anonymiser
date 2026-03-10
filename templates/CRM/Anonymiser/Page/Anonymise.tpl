@@ -12,35 +12,35 @@
 | written permission from the original author(s).        |
 +-------------------------------------------------------*}
 
-<h3>{ts domain=de.systopia.anonymiser}Warning!{/ts}</h3>
+<h3>{ts domain="de.systopia.anonymiser"}Warning!{/ts}</h3>
 <p>
-  {ts domain=de.systopia.anonymiser 1=$contact.display_name 2=$contact.id}You are about to anonymise the contact %1 [%2]. This will anonymise statistically relevant data and delete everything else.{/ts}
-  {ts domain=de.systopia.anonymiser}This process can not be reversed!{/ts}
-  {ts domain=de.systopia.anonymiser}Please note that the data might still be present in old backups.{/ts}
+  {ts domain="de.systopia.anonymiser" 1=$contact.display_name 2=$contact.id}You are about to anonymise the contact %1 [%2]. This will anonymise statistically relevant data and delete everything else.{/ts}
+  {ts domain="de.systopia.anonymiser"}This process can not be reversed!{/ts}
+  {ts domain="de.systopia.anonymiser"}Please note that the data might still be present in old backups.{/ts}
 </p>
 
 <div class="anonymise-question">
   <p>
-    {ts domain=de.systopia.anonymiser}Are you sure you want to anonymise this contact?{/ts}
+    {ts domain="de.systopia.anonymiser"}Are you sure you want to anonymise this contact?{/ts}
   </p>
   <div class="ui-dialog-buttonset">
-    <button type="button" id="anonymise-contact-button" role="button"><span><i class="crm-i fa-user-secret"></i>&nbsp;{ts domain=de.systopia.anonymiser}YES{/ts}</span></button>
+    <button type="button" id="anonymise-contact-button" role="button"><span><i class="crm-i fa-user-secret"></i>&nbsp;{ts domain="de.systopia.anonymiser"}YES{/ts}</span></button>
   </div>
 </div>
 
 <div class="anonymise-log" style="display: none;">
   <b><p id="anonymiser-status-text">
     <img id="bic_busy" height="12" src="{$config->resourceBase}i/loading.gif"/>
-    {ts domain=de.systopia.anonymiser 1=$contact.display_name 2=$contact.id}Anonymising contact %1 [%2]...{/ts}
+    {ts domain="de.systopia.anonymiser" 1=$contact.display_name 2=$contact.id}Anonymising contact %1 [%2]...{/ts}
   </p></b>
-  <h3>{ts domain=de.systopia.anonymiser 1=$contact}Log:{/ts}</h3>
+  <h3>{ts domain="de.systopia.anonymiser" 1=$contact}Log:{/ts}</h3>
   <ul id="anonymiser-log-content">
   </ul>
 </div>
 
 
 <script type="text/javascript">
-var success_message = "{ts domain=de.systopia.anonymiser 1=$contact.display_name 2=$contact.id}Contact %1 [%2] successfully anonymised.{/ts}";
+var success_message = "{ts domain="de.systopia.anonymiser" 1=$contact.display_name 2=$contact.id}Contact %1 [%2] successfully anonymised.{/ts}";
 var contact_id = parseInt("{$contact.id}");
 
 {literal}
