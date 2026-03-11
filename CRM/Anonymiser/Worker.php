@@ -441,6 +441,11 @@ class CRM_Anonymiser_Worker {
       if (count($ids)) {
         $customTables = $this->config->getCustomTablesForEntity($entity);
         foreach ($customTables as $customTable) {
+          // Skip donation receipt tables (civilisten)
+          if (strpos($customTable, 'civicrm_value_donation_rece_') === 0) {
+            continue;
+          }
+            
           CRM_Core_DAO::executeQuery("DELETE FROM `" . $customTable . "` WHERE `entity_id` IN(".implode(",", $ids) . ");");
         }
       }
