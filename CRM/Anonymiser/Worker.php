@@ -505,7 +505,7 @@ class CRM_Anonymiser_Worker {
    * @param $contactId
    * @return void
    */
-  protected static function anonymiseSepaMandates(int $contactId): void {
+  protected function anonymiseSepaMandates(int $contactId): void {
 	  if ($contactId <= 0) return;
 	
     try {
@@ -513,7 +513,9 @@ class CRM_Anonymiser_Worker {
         ->addWhere('contact_id', '=', $contactId)
         ->execute();
 
-      if (count($sepaMandates) === 0) {
+      $mandateCount = count($sepaMandates);
+
+      if ($mandateCount === 0) {
         return;
       }
 
@@ -524,6 +526,8 @@ class CRM_Anonymiser_Worker {
           ->addWhere('id', '=', $mandateId)
           ->execute();
       }
+
+      $this->log($mandateCount > 1 ? "$mandateCount SEPA-Mandate wurden gelöscht." : "1 SEPA-Mandat wurde gelöscht.");
     } catch (\Throwable $e) {
       \CRM_Core_Error::debug_log_message("[AnonymiserPlus] Failed to anonymise SEPA mandates for contact {$contactId}: {$e->getMessage()}");
     }
@@ -534,7 +538,7 @@ class CRM_Anonymiser_Worker {
    * @param $contactId
    * @return void
    */
-  protected static function anonymiseBankAccounts(int $contactId): void {
+  protected function anonymiseBankAccounts(int $contactId): void {
 	  if ($contactId <= 0) return;
 	
     try {
@@ -542,7 +546,9 @@ class CRM_Anonymiser_Worker {
         ->addWhere('contact_id', '=', $contactId)
         ->execute();
 
-      if (count($bankAccounts) === 0) {
+      $accountCount = count($bankAccounts);
+
+      if ($accountCount === 0) {
         return;
       }
 
@@ -553,6 +559,8 @@ class CRM_Anonymiser_Worker {
           ->addWhere('id', '=', $bankAccountId)
           ->execute();
       }
+
+      $this->log($accountCount > 1 ? "$accountCount Bank-Konten wurden gelöscht." : "1 Bank-Konto wurde gelöscht.");
     } catch (\Throwable $e) {
       \CRM_Core_Error::debug_log_message("[AnonymiserPlus] Failed to delete bank accounts for contact {$contactId}: {$e->getMessage()}");
     }
