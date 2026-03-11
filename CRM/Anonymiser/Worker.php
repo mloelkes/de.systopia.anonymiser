@@ -542,9 +542,12 @@ class CRM_Anonymiser_Worker {
 	  if ($contactId <= 0) return;
 	
     try {
-      $bankAccounts = \Civi\Api4\BankAccount::get(TRUE)
-        ->addWhere('contact_id', '=', $contactId)
-        ->execute();
+      $result = civicrm_api3('BankingAccount', 'get', [
+        'sequential' => 1,
+        'contact_id' => $contactId,
+      ]);
+
+      $bankAccounts = $result['values'] ?? [];
 
       $accountCount = count($bankAccounts);
 
@@ -555,9 +558,7 @@ class CRM_Anonymiser_Worker {
       foreach ($bankAccounts as $bankAccount) {
         $bankAccountId = (int) $bankAccount['id'];
 
-        \Civi\Api4\BankAccount::delete(TRUE)
-          ->addWhere('id', '=', $bankAccountId)
-          ->execute();
+        civicrm_api3('BankingAccount', 'delete', ['id' => $bankAccountId]);
       }
 
       $this->log($accountCount > 1 ? "$accountCount Bank-Konten wurden gelöscht." : "1 Bank-Konto wurde gelöscht.");
